@@ -178,6 +178,13 @@ boolean AccelStepperFirmata::handleSysex(byte command, byte argc, byte *argv)
         isRunning[deviceNum] = false;
 
       }
+      
+      else if (stepCommand == ACCELSTEPPER_RUN) {
+        if (stepper[deviceNum]) {
+          stepper[deviceNum]->runSpeed();
+          isRunning[deviceNum] = true;
+        }
+      }
 
       else if (stepCommand == ACCELSTEPPER_STEP) {
         numSteps = decode32BitSignedInteger(argv[2], argv[3], argv[4], argv[5], argv[6]);
